@@ -1,0 +1,696 @@
+{
+  "exported_at": "2026-11-08T22:27:37Z",
+  "prs": [
+    {
+      "body": "## What changed\n- `docs/risk-register.md`: 5 risks with evidence, warning signal, consequence, likelihood, impact, preventive action and owner. Covers a technical dependency (R1, R2), workflow (R3, R5) and production support (R4).\n- `docs/coaching-session.md`: self-coaching reflection on the DoD miss in #14, plus the collaborative and directive decisions.\n\n## Linked issue\nNone. These are management docs, not a work item.\n\n## Definition of Done\n- [x] Acceptance criteria in the issue are met (n/a, no issue)\n- [x] Unit test added (n/a, docs only)\n- [x] All tests pass locally and CI is green\n- [ ] PR links its issue\n- [x] Review pass done with written comments\n- [x] Docs/README updated if needed\n",
+      "closedAt": "2026-11-08T22:27:31Z",
+      "commits": [
+        {
+          "authoredDate": "2026-11-08T22:26:59Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:26:59Z",
+          "messageBody": "",
+          "messageHeadline": "Add risk register and coaching reflection",
+          "oid": "bcf7f10d65a366b9011e7f40eaeeb4e962ed5d84"
+        }
+      ],
+      "createdAt": "2026-11-08T22:27:01Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u5JQ",
+          "name": "process",
+          "description": "Team process, updates, meta",
+          "color": "c5def5"
+        }
+      ],
+      "mergedAt": "2026-11-08T22:27:31Z",
+      "number": 16,
+      "reviews": [
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuVV3g",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Review pass (self-review):\n- Risk table has all 6 required columns plus evidence. Each risk points at something real in this repo or the handout scenario.\n- R1 and R2 are technical dependencies, R3 and R5 workflow, R4 production support.\n- Coaching doc says plainly that it's a self-reflection and not a session with another person.\n- No issue to link. That's a gap in my own process: management docs didn't get a work item. Leaving the box unticked rather than pretending.",
+          "submittedAt": "2026-11-08T22:27:28Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "bcf7f10d65a366b9011e7f40eaeeb4e962ed5d84"
+          }
+        }
+      ],
+      "title": "Risk register and coaching reflection"
+    },
+    {
+      "body": "## What changed\n- `scripts/export_github.sh`: gh export of PRs, issues and the CI check count on each PR's first commit, to `data/github_export.json`.\n- `scripts/metrics.py`: per-PR table, whole-cycle numbers and the before/after split for the experiment. Stdlib only.\n- `docs/dashboard.md`: the 6 metrics with what they measure, why they're useful and what they don't prove.\n- `tests/test_metrics.py`: 5 tests on the calculations.\n\n## Linked issue\nCloses #5\n\n## Definition of Done\n- [x] Acceptance criteria in the issue are met\n- [x] Unit test added\n- [x] All tests pass locally and CI is green\n- [x] PR links its issue\n- [x] Review pass done with written comments\n- [x] Docs/README updated if needed\n",
+      "closedAt": "2026-11-08T22:25:45Z",
+      "commits": [
+        {
+          "authoredDate": "2026-11-08T22:24:34Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:24:34Z",
+          "messageBody": "",
+          "messageHeadline": "Add gh export, metrics script and dashboard doc (#5)",
+          "oid": "a7230fb83051a4a46f6eb6cce4d66e7cdc1aec57"
+        }
+      ],
+      "createdAt": "2026-11-08T22:24:36Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3IA",
+          "name": "type:technical",
+          "description": "Tooling, CI, infrastructure",
+          "color": "5319e7"
+        }
+      ],
+      "mergedAt": "2026-11-08T22:25:45Z",
+      "number": 15,
+      "reviews": [
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuU-qw",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Review pass (self-review, right after CI finished, review-first rule):\n- Ran `scripts/export_github.sh` and `scripts/metrics.py` on the real repo before opening this. Output matched what I see on the PR pages (for example #13 shows FTR False because of the follow-up commit after its first review, and #12 shows 0 CI checks on its first commit).\n- No LOC, commit count or hours in any metric. Commits are only used to check for rework after review, not counted as output.\n- The PR limit in the export is 30 because the gh GraphQL query hit GitHub's node limit at 200. Fine for this repo, written down here in case it grows.\n- 5 calculation tests pass, CI green.",
+          "submittedAt": "2026-11-08T22:25:41Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "a7230fb83051a4a46f6eb6cce4d66e7cdc1aec57"
+          }
+        }
+      ],
+      "title": "Dashboard metrics from real GitHub data"
+    },
+    {
+      "body": "## What changed\n- `AppointmentBook` takes a `clock` (defaults to `datetime.now`). `book()` raises ValueError if the start time is before `clock()`.\n- Tests use a fixed clock (Nov 8, 2026 9:00), so they won't start failing once the test dates are in the past.\n- Adds `scripts/verify_scenarios.py`, the script I use for the DoD verification step on main for #1, #2 and #4.\n\n## Linked issue\nCloses #4\n\n## Definition of Done\n- [x] Acceptance criteria in the issue are met\n- [ ] Unit test added (defects: failing test first, then fix) (tests added, but not failing-first, see review)\n- [x] All tests pass locally and CI is green\n- [x] PR links its issue\n- [x] Review pass done with written comments\n- [x] Docs/README updated if needed\n\n",
+      "closedAt": "2026-11-08T22:23:13Z",
+      "commits": [
+        {
+          "authoredDate": "2026-11-08T22:22:18Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:22:18Z",
+          "messageBody": "",
+          "messageHeadline": "Refuse bookings in the past, use an injectable clock in tests (#4)",
+          "oid": "08069ef8c26a8ea026a11716ed76d44e929e403b"
+        }
+      ],
+      "createdAt": "2026-11-08T22:22:20Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2sA",
+          "name": "type:defect",
+          "description": "Something is broken",
+          "color": "d73a4a"
+        }
+      ],
+      "mergedAt": "2026-11-08T22:23:13Z",
+      "number": 14,
+      "reviews": [
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuUaOg",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Review pass (self-review, done right after opening, under the new review-first rule in docs/experiment.md):\n- Past booking refused and future booking OK both have tests. Clock is injected, so tests don't depend on the real date. That was the third criterion.\n- CI green on the first push. This branch was made from a main that already had CI.\n- DoD miss: for a defect the DoD wants a failing test first, then the fix. I wrote the test and fix in one commit. I tried running the new tests against the old code afterwards, but they error out on the new `clock` argument instead of failing on the actual bug, so that doesn't really show it. Leaving that box unticked so the checklist shows it honestly.\n- No README change needed.",
+          "submittedAt": "2026-11-08T22:22:56Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "08069ef8c26a8ea026a11716ed76d44e929e403b"
+          }
+        }
+      ],
+      "title": "Refuse appointment bookings in the past"
+    },
+    {
+      "body": "## What changed\n1. A test that reproduces incident #1. CI failed on it as expected.\n2. Fix: `cancel()` removes the pending reminder.\n3. From review: `send_due()` skips any reminder whose appointment isn't booked anymore.\n4. Five Whys RCA in docs/rca-five-whys.md, plus two process changes from it (work item template question, incident rule in workflow.md).\n\n## Linked issue\nCloses #1\n\n## Definition of Done\n- [x] Acceptance criteria in the issue are met\n- [x] Unit test added (defects: failing test first, then fix)\n- [x] All tests pass locally and CI is green\n- [x] PR links its issue\n- [x] Review pass done with written comments\n- [x] Docs/README updated if needed\n",
+      "closedAt": "2026-11-08T22:20:55Z",
+      "commits": [
+        {
+          "authoredDate": "2026-11-08T22:16:04Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:16:04Z",
+          "messageBody": "",
+          "messageHeadline": "Add failing test: cancelled appointment still gets a reminder (#1)",
+          "oid": "e6d74f1020a20db119babcbd6f99f462204e1cc2"
+        },
+        {
+          "authoredDate": "2026-11-08T22:17:04Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:17:04Z",
+          "messageBody": "",
+          "messageHeadline": "Merge branch 'main' into defect/1-cancelled-reminders",
+          "oid": "76dcfcaef4aa257635fb7fa06643a10a16e66dd6"
+        },
+        {
+          "authoredDate": "2026-11-08T22:18:19Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:18:19Z",
+          "messageBody": "",
+          "messageHeadline": "Remove pending reminders when an appointment is cancelled (#1)",
+          "oid": "f93d17853efc711912a103440d5ae93a4858e22a"
+        },
+        {
+          "authoredDate": "2026-11-08T22:19:11Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:19:11Z",
+          "messageBody": "…efect/1-cancelled-reminders",
+          "messageHeadline": "Merge branch 'main' of https://github.com/omorsi45/medilink-a3 into d…",
+          "oid": "eeae5049e60d8f49b3cce6c5860b752c95c13bfc"
+        },
+        {
+          "authoredDate": "2026-11-08T22:19:21Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:19:21Z",
+          "messageBody": "…#13)",
+          "messageHeadline": "Skip reminders for appointments that are no longer booked (review on …",
+          "oid": "4a2730edc2dbe0ea35df408408be1cf5e1e95f01"
+        },
+        {
+          "authoredDate": "2026-11-08T22:20:15Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:20:15Z",
+          "messageBody": "",
+          "messageHeadline": "Add Five Whys RCA for incident #1 and two preventive process changes",
+          "oid": "ee510e29876ef2e0f876fe2cbdedc8a04dba06b8"
+        }
+      ],
+      "createdAt": "2026-11-08T22:16:06Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2sA",
+          "name": "type:defect",
+          "description": "Something is broken",
+          "color": "d73a4a"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4_A",
+          "name": "incident",
+          "description": "Production incident",
+          "color": "ff0000"
+        }
+      ],
+      "mergedAt": "2026-11-08T22:20:55Z",
+      "number": 13,
+      "reviews": [
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuTn8g",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Review pass (self-review):\n- The failing test from the first commit now passes, and CI went red then green on this PR, so the test really catches the bug.\n- Problem I found: the fix only works if every cancel goes through `AppointmentBook.cancel()`. If anything else ever changes an appointment's status, `send_due()` would still send the reminder because it never looks at the appointment. Since this is the incident, I want a second guard: `send_due()` should skip a reminder whose appointment isn't booked.\nPushing a follow-up commit for that before merging.",
+          "submittedAt": "2026-11-08T22:19:10Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "f93d17853efc711912a103440d5ae93a4858e22a"
+          }
+        },
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuT_BA",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Second review pass after the follow-up commits:\n- `send_due()` guard has its own test (status changed without `cancel()`).\n- RCA has symptom, immediate cause, contributing factors, underlying causes, 5 whys and 5 actions, no names.\n- Template and workflow changes match actions 4 and 5.\n- CI green. OK to merge.",
+          "submittedAt": "2026-11-08T22:20:53Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "ee510e29876ef2e0f876fe2cbdedc8a04dba06b8"
+          }
+        }
+      ],
+      "title": "Fix incident: cancelled appointments still get reminders"
+    },
+    {
+      "body": "## What changed\n`book()` now raises ValueError if the clinic already has a booked appointment at that start time. Cancelled appointments don't count, so the slot can be rebooked.\n\n## Linked issue\nCloses #2\n\n## Definition of Done\n- [x] Acceptance criteria in the issue are met\n- [x] Unit test added (3 new tests)\n- [x] All tests pass locally and CI is green\n- [x] PR links its issue\n- [x] Review pass done with written comments\n- [x] Docs/README updated if needed (none needed)\n",
+      "closedAt": "2026-11-08T22:19:06Z",
+      "commits": [
+        {
+          "authoredDate": "2026-11-08T22:15:44Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:15:44Z",
+          "messageBody": "",
+          "messageHeadline": "Refuse double booking of a clinic time slot (#2)",
+          "oid": "488846d0bdf546706e8033e008fc17e3a4a93486"
+        },
+        {
+          "authoredDate": "2026-11-08T22:17:03Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:17:03Z",
+          "messageBody": "",
+          "messageHeadline": "Merge branch 'main' into feature/2-double-booking",
+          "oid": "0546dfc9cba819d60260d2ca201edf56060705a1"
+        }
+      ],
+      "createdAt": "2026-11-08T22:15:46Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2lw",
+          "name": "type:feature",
+          "description": "New behaviour",
+          "color": "1d76db"
+        }
+      ],
+      "mergedAt": "2026-11-08T22:19:06Z",
+      "number": 12,
+      "reviews": [
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuTmPg",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Review pass (self-review, done after the PR had been waiting while I opened #13):\n- All 3 acceptance criteria have a test: refused double booking, rebooking after cancel, same time at another clinic.\n- `_slot_taken` loops over every appointment. Fine at this size. If the clinic list gets big, an index by (clinic, start) would be better, but that's not this release.\n- Status is compared as the raw string \"booked\". That's exactly what #8 is about, so leaving it for #8.\n- CI green after merging main in.\nDocs: no behaviour a user sets up, so no README change needed.",
+          "submittedAt": "2026-11-08T22:19:03Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "0546dfc9cba819d60260d2ca201edf56060705a1"
+          }
+        }
+      ],
+      "title": "Prevent double booking of a clinic slot"
+    },
+    {
+      "body": "## What changed\nAdds `.github/workflows/tests.yml`. It runs `python3 -m unittest discover -v` on every push to main and on every PR. README says so.\n\n## Linked issue\nCloses #3\n\n## Definition of Done\n- [x] Acceptance criteria in the issue are met\n- [x] Unit test added (n/a: this PR adds the CI that runs the existing tests)\n- [x] All tests pass locally and CI is green\n- [x] PR links its issue\n- [x] Review pass done with written comments\n- [x] Docs/README updated if needed\n\n",
+      "closedAt": "2026-11-08T22:16:59Z",
+      "commits": [
+        {
+          "authoredDate": "2026-11-08T22:14:30Z",
+          "authors": [
+            {
+              "email": "99768197+omorsi45@users.noreply.github.com",
+              "id": "U_kgDOBfJXhQ",
+              "login": "omorsi45",
+              "name": "Omar Morsi"
+            }
+          ],
+          "committedDate": "2026-11-08T22:14:30Z",
+          "messageBody": "",
+          "messageHeadline": "Run unit tests in GitHub Actions on push and PR (#3)",
+          "oid": "78bece27342377c66a16491a2f8f0506604d2fc7"
+        }
+      ],
+      "createdAt": "2026-11-08T22:14:33Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3IA",
+          "name": "type:technical",
+          "description": "Tooling, CI, infrastructure",
+          "color": "5319e7"
+        }
+      ],
+      "mergedAt": "2026-11-08T22:16:59Z",
+      "number": 11,
+      "reviews": [
+        {
+          "id": "PRR_kwDOVngBXs8AAAABWuTJJw",
+          "author": {
+            "login": "omorsi45"
+          },
+          "authorAssociation": "OWNER",
+          "body": "Review pass (self-review, separate step after opening, using the DoD list):\n- Workflow triggers on push to main and pull_request, matches the acceptance criteria.\n- CI run passed in 6s with all 5 tests.\n- Pinned Python to 3.12. The box I'm on has 3.13; nothing here is version specific, so fine.\n- README line added.\nOne thing I noticed: #12 and #13 were opened while this was still waiting, so they have no CI. They'll need main merged in after this goes in.",
+          "submittedAt": "2026-11-08T22:16:54Z",
+          "includesCreatedEdit": false,
+          "reactionGroups": [],
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "78bece27342377c66a16491a2f8f0506604d2fc7"
+          }
+        }
+      ],
+      "title": "CI: run unit tests on every PR"
+    }
+  ],
+  "issues": [
+    {
+      "closedAt": null,
+      "createdAt": "2026-11-08T22:13:41Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u5JQ",
+          "name": "process",
+          "description": "Team process, updates, meta",
+          "color": "c5def5"
+        }
+      ],
+      "number": 10,
+      "state": "OPEN",
+      "title": "Daily updates (async)"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-11-08T22:13:39Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u23g",
+          "name": "type:maintenance",
+          "description": "Upkeep, cleanup, docs",
+          "color": "fbca04"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u30A",
+          "name": "priority:P3",
+          "description": "Nice to have",
+          "color": "f9d0c4"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4Hw",
+          "name": "status:ready",
+          "description": "Workflow state",
+          "color": "c2e0c6"
+        }
+      ],
+      "number": 9,
+      "state": "OPEN",
+      "title": "README: setup steps and how to work in this repo"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-11-08T22:13:36Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u23g",
+          "name": "type:maintenance",
+          "description": "Upkeep, cleanup, docs",
+          "color": "fbca04"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u30A",
+          "name": "priority:P3",
+          "description": "Nice to have",
+          "color": "f9d0c4"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3-Q",
+          "name": "status:backlog",
+          "description": "Workflow state",
+          "color": "ededed"
+        }
+      ],
+      "number": 8,
+      "state": "OPEN",
+      "title": "Use constants for appointment status instead of raw strings"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-11-08T22:13:34Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2lw",
+          "name": "type:feature",
+          "description": "New behaviour",
+          "color": "1d76db"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u30A",
+          "name": "priority:P3",
+          "description": "Nice to have",
+          "color": "f9d0c4"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3-Q",
+          "name": "status:backlog",
+          "description": "Workflow state",
+          "color": "ededed"
+        }
+      ],
+      "number": 7,
+      "state": "OPEN",
+      "title": "Configurable reminder lead time per clinic"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-11-08T22:13:32Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2lw",
+          "name": "type:feature",
+          "description": "New behaviour",
+          "color": "1d76db"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3mA",
+          "name": "priority:P2",
+          "description": "Should ship this release",
+          "color": "e99695"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4Sw",
+          "name": "status:in-progress",
+          "description": "Workflow state",
+          "color": "0e8a16"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u44Q",
+          "name": "blocked",
+          "description": "Stopped by something outside the item",
+          "color": "b60205"
+        }
+      ],
+      "number": 6,
+      "state": "OPEN",
+      "title": "Clinic admin can list one day's appointments"
+    },
+    {
+      "closedAt": "2026-11-08T22:25:47Z",
+      "createdAt": "2026-11-08T22:13:30Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3IA",
+          "name": "type:technical",
+          "description": "Tooling, CI, infrastructure",
+          "color": "5319e7"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3mA",
+          "name": "priority:P2",
+          "description": "Should ship this release",
+          "color": "e99695"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4pw",
+          "name": "status:verification",
+          "description": "Workflow state",
+          "color": "bfdadc"
+        }
+      ],
+      "number": 5,
+      "state": "CLOSED",
+      "title": "Dashboard metrics script from real GitHub data"
+    },
+    {
+      "closedAt": "2026-11-08T22:23:14Z",
+      "createdAt": "2026-11-08T22:13:27Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2sA",
+          "name": "type:defect",
+          "description": "Something is broken",
+          "color": "d73a4a"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3mA",
+          "name": "priority:P2",
+          "description": "Should ship this release",
+          "color": "e99695"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4yA",
+          "name": "status:done",
+          "description": "Workflow state",
+          "color": "000000"
+        }
+      ],
+      "number": 4,
+      "state": "CLOSED",
+      "title": "Booking accepts appointment times in the past"
+    },
+    {
+      "closedAt": "2026-11-08T22:17:00Z",
+      "createdAt": "2026-11-08T22:13:26Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3IA",
+          "name": "type:technical",
+          "description": "Tooling, CI, infrastructure",
+          "color": "5319e7"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3mA",
+          "name": "priority:P2",
+          "description": "Should ship this release",
+          "color": "e99695"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4yA",
+          "name": "status:done",
+          "description": "Workflow state",
+          "color": "000000"
+        }
+      ],
+      "number": 3,
+      "state": "CLOSED",
+      "title": "Run the unit tests in CI on every PR"
+    },
+    {
+      "closedAt": "2026-11-08T22:19:08Z",
+      "createdAt": "2026-11-08T22:13:23Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2lw",
+          "name": "type:feature",
+          "description": "New behaviour",
+          "color": "1d76db"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3Vw",
+          "name": "priority:P1",
+          "description": "Must ship this release",
+          "color": "b60205"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4yA",
+          "name": "status:done",
+          "description": "Workflow state",
+          "color": "000000"
+        }
+      ],
+      "number": 2,
+      "state": "CLOSED",
+      "title": "Prevent double booking of the same clinic time slot"
+    },
+    {
+      "closedAt": "2026-11-08T22:20:57Z",
+      "createdAt": "2026-11-08T22:13:21Z",
+      "labels": [
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u2sA",
+          "name": "type:defect",
+          "description": "Something is broken",
+          "color": "d73a4a"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u3Vw",
+          "name": "priority:P1",
+          "description": "Must ship this release",
+          "color": "b60205"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4yA",
+          "name": "status:done",
+          "description": "Workflow state",
+          "color": "000000"
+        },
+        {
+          "id": "LA_kwDOVngBXs8AAAADB0u4_A",
+          "name": "incident",
+          "description": "Production incident",
+          "color": "ff0000"
+        }
+      ],
+      "number": 1,
+      "state": "CLOSED",
+      "title": "Cancelled appointments still receive reminders"
+    }
+  ],
+  "first_commit_checks": {
+    "16": 1,
+    "15": 1,
+    "14": 1,
+    "13": 0,
+    "12": 0,
+    "11": 1
+  }
+}
