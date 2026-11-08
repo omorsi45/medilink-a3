@@ -16,6 +16,8 @@ class AppointmentBook:
         self._appointments = {}
         self._next_id = 1
         self.reminders = reminders
+        if reminders is not None and reminders.is_active is None:
+            reminders.is_active = self._is_booked
 
     def book(self, patient, clinic, start):
         if self._slot_taken(clinic, start):
@@ -40,6 +42,10 @@ class AppointmentBook:
         return any(a.clinic == clinic and a.start == start
                    and a.status == "booked"
                    for a in self._appointments.values())
+
+    def _is_booked(self, appointment_id):
+        appt = self._appointments.get(appointment_id)
+        return appt is not None and appt.status == "booked"
 
     def get(self, appointment_id):
         return self._appointments[appointment_id]

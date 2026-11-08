@@ -38,6 +38,13 @@ class ReminderTests(unittest.TestCase):
         self.book.cancel(a.id)
         self.assertEqual(self.reminders.pending(), [])
 
+    def test_send_due_skips_appointment_cancelled_another_way(self):
+        # Second guard: even if status changes without cancel(), no reminder
+        a = self.book.book("Ana", "Clinic A", self.start)
+        self.book.get(a.id).status = "cancelled"
+        sent = self.reminders.send_due(self.start)
+        self.assertEqual(sent, [])
+
 
 if __name__ == "__main__":
     unittest.main()
