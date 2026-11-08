@@ -6,6 +6,9 @@ labels: status:backlog
 
 ## Description
 
+## What else uses this data?
+(Other parts of the app that read or depend on what this changes. Add an acceptance criterion for each one.)
+
 ## Owner
 Omar Morsi
 

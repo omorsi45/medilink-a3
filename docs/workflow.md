@@ -22,3 +22,6 @@ WIP limit: 2 items total across In Progress + Code Review.
 Why 2: I'm one person doing this cycle. The handout scenario says developers kept starting new work while old work sat waiting for review. With a limit of 1, I'd have nothing to do while CI runs or while I wait on an answer. With 3 or more, I'd just repeat the scenario's problem. 2 lets one item wait in review while I work on one other thing, and no more. If I'm at 2, the next move is finishing a review, not starting something new.
 
 The limit doesn't count Verification, since that step is short and doesn't block new work.
+
+## Incident rule
+Any P1 incident gets a short Five Whys RCA in `docs/` before its issue is closed. Added after incident #1 (see docs/rca-five-whys.md).
