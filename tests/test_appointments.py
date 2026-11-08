@@ -24,6 +24,22 @@ class BookingTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.book.cancel(99)
 
+    def test_double_booking_refused(self):
+        self.book.book("Ana", "Clinic A", self.start)
+        with self.assertRaises(ValueError):
+            self.book.book("Ben", "Clinic A", self.start)
+
+    def test_cancelled_slot_can_be_rebooked(self):
+        a = self.book.book("Ana", "Clinic A", self.start)
+        self.book.cancel(a.id)
+        b = self.book.book("Ben", "Clinic A", self.start)
+        self.assertEqual(b.status, "booked")
+
+    def test_same_time_other_clinic_ok(self):
+        self.book.book("Ana", "Clinic A", self.start)
+        b = self.book.book("Ben", "Clinic B", self.start)
+        self.assertEqual(b.clinic, "Clinic B")
+
 
 if __name__ == "__main__":
     unittest.main()
