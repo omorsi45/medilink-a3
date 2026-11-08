@@ -12,4 +12,9 @@ The handout asks for one SMART objective per team member. I'm the only member, s
 | Relevant | The P1s are the incident and the double-booking risk. CI and the checklist go after "defects reached production because verification was missed" |
 | Time-bound | 11:59 PM ET, Nov 8, 2026 |
 
-The result is written at the end of docs/experiment.md and in the report.
+## Result (end of cycle, 5:30 PM ET)
+- #1, #2, #3, #4, #5: all Done before the deadline. Met.
+- CI green on every merged PR. Met.
+- All 6 DoD items ticked on every merged PR: not met. #14 missed "failing test first" and #16 had no linked issue (34/36 boxes overall, from data/metrics_output.txt).
+
+So the objective was partly met. The miss on #14 is what the coaching reflection (docs/coaching-session.md) is about.
