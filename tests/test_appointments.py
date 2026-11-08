@@ -3,10 +3,12 @@ from datetime import datetime
 
 from medilink.appointments import AppointmentBook
 
+FIXED_NOW = datetime(2026, 11, 8, 9, 0)
+
 
 class BookingTests(unittest.TestCase):
     def setUp(self):
-        self.book = AppointmentBook()
+        self.book = AppointmentBook(clock=lambda: FIXED_NOW)
         self.start = datetime(2026, 11, 20, 10, 0)
 
     def test_book_gives_new_id(self):
@@ -39,6 +41,14 @@ class BookingTests(unittest.TestCase):
         self.book.book("Ana", "Clinic A", self.start)
         b = self.book.book("Ben", "Clinic B", self.start)
         self.assertEqual(b.clinic, "Clinic B")
+
+    def test_past_booking_refused(self):
+        with self.assertRaises(ValueError):
+            self.book.book("Ana", "Clinic A", datetime(2026, 11, 7, 10, 0))
+
+    def test_future_booking_ok(self):
+        a = self.book.book("Ana", "Clinic A", datetime(2026, 11, 9, 10, 0))
+        self.assertEqual(a.status, "booked")
 
 
 if __name__ == "__main__":
