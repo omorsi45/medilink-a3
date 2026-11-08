@@ -4,11 +4,13 @@ from datetime import datetime, timedelta
 from medilink.appointments import AppointmentBook
 from medilink.reminders import ReminderScheduler
 
+FIXED_NOW = datetime(2026, 11, 8, 9, 0)
+
 
 class ReminderTests(unittest.TestCase):
     def setUp(self):
         self.reminders = ReminderScheduler()
-        self.book = AppointmentBook(self.reminders)
+        self.book = AppointmentBook(self.reminders, clock=lambda: FIXED_NOW)
         self.start = datetime(2026, 11, 20, 10, 0)
 
     def test_reminder_scheduled_24h_before(self):

@@ -12,7 +12,8 @@ class Appointment:
 
 
 class AppointmentBook:
-    def __init__(self, reminders=None):
+    def __init__(self, reminders=None, clock=datetime.now):
+        self.clock = clock
         self._appointments = {}
         self._next_id = 1
         self.reminders = reminders
@@ -20,6 +21,8 @@ class AppointmentBook:
             reminders.is_active = self._is_booked
 
     def book(self, patient, clinic, start):
+        if start < self.clock():
+            raise ValueError(f"can't book in the past ({start})")
         if self._slot_taken(clinic, start):
             raise ValueError(f"{clinic} already has a booking at {start}")
         appt = Appointment(self._next_id, patient, clinic, start)
