@@ -10,6 +10,8 @@ Individual submission: Omar Morsi (40236376).
 
 Python 3 standard library only.
 
+CI: GitHub Actions runs the unit tests on every push to main and on every PR (`.github/workflows/tests.yml`).
+
 ## Run the tests
 ```
 python3 -m unittest discover -v
