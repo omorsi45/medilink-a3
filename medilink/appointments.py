@@ -18,6 +18,8 @@ class AppointmentBook:
         self.reminders = reminders
 
     def book(self, patient, clinic, start):
+        if self._slot_taken(clinic, start):
+            raise ValueError(f"{clinic} already has a booking at {start}")
         appt = Appointment(self._next_id, patient, clinic, start)
         self._appointments[appt.id] = appt
         self._next_id += 1
@@ -31,6 +33,11 @@ class AppointmentBook:
             raise KeyError(f"no appointment {appointment_id}")
         appt.status = "cancelled"
         return appt
+
+    def _slot_taken(self, clinic, start):
+        return any(a.clinic == clinic and a.start == start
+                   and a.status == "booked"
+                   for a in self._appointments.values())
 
     def get(self, appointment_id):
         return self._appointments[appointment_id]
