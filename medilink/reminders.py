@@ -23,6 +23,11 @@ class ReminderScheduler:
         self._pending.append(reminder)
         return reminder
 
+    def cancel(self, appointment_id):
+        """Drop every pending reminder for this appointment."""
+        self._pending = [r for r in self._pending
+                         if r.appointment_id != appointment_id]
+
     def pending(self):
         return list(self._pending)
 

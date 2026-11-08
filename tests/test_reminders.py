@@ -33,6 +33,11 @@ class ReminderTests(unittest.TestCase):
         self.assertNotIn(cancelled.id, sent_ids)
         self.assertIn(kept.id, sent_ids)
 
+    def test_cancel_removes_pending_reminder(self):
+        a = self.book.book("Ana", "Clinic A", self.start)
+        self.book.cancel(a.id)
+        self.assertEqual(self.reminders.pending(), [])
+
 
 if __name__ == "__main__":
     unittest.main()

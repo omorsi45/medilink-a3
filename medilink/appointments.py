@@ -30,6 +30,8 @@ class AppointmentBook:
         if appt is None:
             raise KeyError(f"no appointment {appointment_id}")
         appt.status = "cancelled"
+        if self.reminders is not None:
+            self.reminders.cancel(appt.id)
         return appt
 
     def get(self, appointment_id):
