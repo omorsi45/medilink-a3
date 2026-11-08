@@ -1,0 +1,13 @@
+# Risk register: Release 2.4
+
+Each risk is based on something from the handout scenario or something that actually happened in this cycle. A warning signal means "go look at this". It doesn't mean the failure will happen.
+
+Likelihood and impact: Low / Medium / High. Owner is me for all of them since I'm the only member. Once I'm in a team, each one would get its own owner.
+
+| # | Risk | Type | Evidence | Warning signal | Potential consequence | Likelihood | Impact | Preventive action | Owner |
+|---|---|---|---|---|---|---|---|---|---|
+| R1 | Appointment times have no timezone | Technical dependency (data) | #6 is blocked on it. Reminders (#7) use the same times | Any issue or bug report that mentions a clinic in another province or a "wrong day" | Wrong day lists for clinics, reminders sent at the wrong hour | Medium | High | Decide how times are stored before #6 or #7 continue. Add tests with two timezones | Omar |
+| R2 | CI and metrics depend on GitHub Actions and the GitHub API | Technical dependency (tooling) | The gh export hit GitHub's GraphQL node limit at `--limit 200`. I also got two network timeouts calling the API during the cycle | A PR with no check run, or the export failing | PRs merged with no automatic test run, dashboard can't be updated | Medium | Medium | DoD item 3 still asks for a local test run. Export limit lowered to 30 and noted on #15. Check every PR has a check before merging | Omar |
+| R3 | New work started while PRs wait | Teamwork / workflow | Scenario says this happened. In this cycle 3 PRs were open at once, WIP went to 3 vs a limit of 2, and #12/#13 got no CI because #11 was still waiting | More than 1 PR waiting, or WIP above 2 on the board | Long-open PRs, merge conflicts, branches missing fixes from main | High | Medium | WIP limit of 2. Review-first rule from the experiment (now kept in modified form) | Omar |
+| R4 | Production support pulls people off planned work | Maintenance / production support | Scenario says devs were often interrupted. Incident #1 jumped the queue in this cycle and pushed WIP over the limit | Incident or support issues opened during a cycle, items paused mid-way | Planned P1/P2 work slips, rushed fixes with no RCA (like the scenario's last incident) | High | Medium | Keep room in the plan for 1 unplanned item. Incident rule: P1 gets an RCA before closing. Rotate who handles support in a team | Omar |
+| R5 | Only one person reviews (self-review) | Teamwork / quality | Every review on #11 to #15 is my own | A PR merged with no comment pointing out a problem | Gaps that a second person would see go to production | High | Medium | Use the DoD checklist and CI as a second check. In Group 14, require a teammate's review before merge | Omar |
