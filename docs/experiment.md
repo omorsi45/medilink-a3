@@ -46,7 +46,7 @@ What the numbers do and don't say:
 - DoD compliance went down. That's two honest misses (#14 no failing-test-first, #16 no linked issue), not the rule making things worse. The checklist did its job by showing them.
 - 3 PRs vs 3 PRs, one person, one day. This can't prove the rule caused anything.
 
-Feedback (mine, since I'm the only one on the team): working one PR at a time felt simpler. I never had to merge main back into a branch after the rule started, and before it I had to do it twice. The cost showed up on #15: I waited for CI to finish before reviewing, which is most of its 1.1 minutes. On a real team, waiting on a reviewer would take much longer than CI, so "do nothing until it's merged" wouldn't scale.
+Feedback (mine, since I'm the only one on the team): working one PR at a time felt simpler. I never had to merge main back into a branch after the rule started, and before it I had to do it three times (once on #12, twice on #13). The cost showed up on #15: I waited for CI to finish before reviewing, which is most of its 1.1 minutes. On a real team, waiting on a reviewer would take much longer than CI, so "do nothing until it's merged" wouldn't scale.
 
 ## Decision
 **Modify.**
