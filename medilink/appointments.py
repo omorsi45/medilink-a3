@@ -50,6 +50,17 @@ class AppointmentBook:
         appt = self._appointments.get(appointment_id)
         return appt is not None and appt.status == "booked"
 
+    def day_schedule(self, clinic, day):
+        """Booked appointments for one clinic on one date, sorted by time.
+
+        WIP (#6): `day` is compared to the naive start datetime. Blocked on
+        which timezone a clinic's day uses, see the issue.
+        """
+        return sorted((a for a in self._appointments.values()
+                       if a.clinic == clinic and a.status == "booked"
+                       and a.start.date() == day),
+                      key=lambda a: a.start)
+
     def get(self, appointment_id):
         return self._appointments[appointment_id]
 
